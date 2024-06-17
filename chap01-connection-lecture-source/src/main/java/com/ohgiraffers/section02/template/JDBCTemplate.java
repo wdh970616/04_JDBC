@@ -12,7 +12,7 @@ public class JDBCTemplate {
     // 커넥션을 리턴해주는 메소드
     public static Connection getConnection() {
 
-        Connection con  = null;
+        Connection con = null;
         Properties prop = new Properties();
 
         // Properties 파일에 담긴 정보 가져오기
@@ -29,7 +29,7 @@ public class JDBCTemplate {
             Class.forName(driver);
 
             // DriverManger를 통해서 Connection 객체 생성
-            con = DriverManager.getConnection(url,user,password);
+            con = DriverManager.getConnection(url, prop);
 
 
         } catch (IOException e) {
@@ -41,5 +41,15 @@ public class JDBCTemplate {
         }
         return con;
     }
+
     // 커넥션을 닫아주는 메소드
+    public static void close(Connection con) {
+        try {
+            if (con != null && !con.isClosed()) {
+                con.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
