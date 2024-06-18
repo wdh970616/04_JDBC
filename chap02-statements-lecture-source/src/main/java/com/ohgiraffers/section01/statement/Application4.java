@@ -6,8 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
 import static com.ohgiraffers.common.JDBCTemplate.close;
 import static com.ohgiraffers.common.JDBCTemplate.getConnection;
@@ -19,44 +18,43 @@ public class Application4 {
         Connection con = getConnection();
         // 2. Statement 생성
         Statement stmt = null;
-        // 3. ResultSet 생성
+        // 3. ResultSet 생성 -> Select 할때만 사용
         ResultSet rset = null;
-        // List 생성
-        List<EmployeeDTO> empList = null;
         // EmployeeDTO 생성
-        EmployeeDTO row = null;
+        EmployeeDTO selectedEmp = null;
 
         try {
             // 4. 연결객체의 createStatement()를 이용한 Statement 객체 생성
             stmt = con.createStatement();
 
-            //employee 테비블 전체 조회
-            String query = "select * from employee";
+            // 스캐너로 emp_id를 입력받아 조회하기
+            Scanner sc = new Scanner(System.in);
+            System.out.print("조회하려는 사번을 입력하세요 : ");
+            String empId = sc.nextLine();
+            String query = "select emp_id, emp_name from employee where emp_id = '" + empId + "'";
 
             // 5. excuteQuery()로 쿼리문을 실행하고 결과를 ResultSet에 받기
             rset = stmt.executeQuery(query);
 
-            empList = new ArrayList<>();
-
             // 6. 쿼리문의 결과를 컬럼 이름을 이용해서 사용
             if (rset.next()) {
-                row = new EmployeeDTO();
-                row.setEmpId(rset.getString("EMP_ID"));
-                row.setEmpName(rset.getString("EMP_NAME"));
-                row.setEmpNo(rset.getString("EMP_NO"));
-                row.setEmail(rset.getString("EMAIL"));
-                row.setPhone(rset.getString("PHONE"));
-                row.setDeptCode(rset.getString("DEPT_CODE"));
-                row.setJobCode(rset.getString("JOB_CODE"));
-                row.setSalLevel(rset.getString("SAL_LEVEL"));
-                row.setSalary(rset.getDouble("SALARY"));
-                row.setBonus(rset.getDouble("BONUS"));
-                row.setManagerId(rset.getString("MANAGER_ID"));
-                row.setHireDate(rset.getDate("HIRE_DATE"));
-                row.setEntDate(rset.getDate("ENT_DATE"));
-                row.setEntYn(rset.getString("ENT_YN"));
-                empList.add(row);
+                selectedEmp = new EmployeeDTO();
+                selectedEmp.setEmpId(rset.getString("EMP_ID"));
+                selectedEmp.setEmpName(rset.getString("EMP_NAME"));
+                selectedEmp.setEmpNo(rset.getString("EMP_NO"));
+                selectedEmp.setEmail(rset.getString("EMAIL"));
+                selectedEmp.setPhone(rset.getString("PHONE"));
+                selectedEmp.setDeptCode(rset.getString("DEPT_CODE"));
+                selectedEmp.setJobCode(rset.getString("JOB_CODE"));
+                selectedEmp.setSalLevel(rset.getString("SAL_LEVEL"));
+                selectedEmp.setSalary(rset.getDouble("SALARY"));
+                selectedEmp.setBonus(rset.getDouble("BONUS"));
+                selectedEmp.setManagerId(rset.getString("MANAGER_ID"));
+                selectedEmp.setHireDate(rset.getDate("HIRE_DATE"));
+                selectedEmp.setEntDate(rset.getDate("ENT_DATE"));
+                selectedEmp.setEntYn(rset.getString("ENT_YN"));
             }
+            System.out.println(selectedEmp.toString());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -64,9 +62,6 @@ public class Application4 {
             close(rset);
             close(stmt);
             close(con);
-            for (EmployeeDTO emp : empList) {
-                System.out.println(emp);
-            }
         }
     }
 }
