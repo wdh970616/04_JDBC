@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="allEmp">
+        select *
+        from employee
+    </entry>
+
+    <entry key="insertEmp">
+        insert into employee (
+        emp_id,
+        emp_name,
+        emp_no,
+        email,
+        phone,
+        dept_code,
+        job_code,
+        sal_level,
+        manager_id)
+        values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    </entry>
+
+    <entry key="updateEmp">
+        update employee
+        set emp_name = ?,
+        email = ?,
+        phone = ?,
+        ent_yn =?
+        where emp_id = ?
+    </entry>
+
+    <entry key="deleteEmp">
+        delete
+        from employee
+        where emp_id = ?
+    </entry>
+
+    <entry key="thisEmp">
+        select *
+        from employee
+        where emp_id = ?
+    </entry>
+</properties>
