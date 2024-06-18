@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -47,6 +49,14 @@ public class InsertEmp {
             String salLevel = sc.nextLine();
             System.out.print("등록하실 사원의 관리자사번을 입력해주세요 : ");
             String managerId = sc.nextLine();
+//            System.out.print("등록하실 사원의 입사연도를 입력해주세요 : ");
+//            String year = sc.nextLine();
+//            System.out.print("등록하실 사원의 입사월을 입력해주세요 : ");
+//            String month = sc.nextLine();
+//            System.out.print("등록하실 사원의 입사일을 입력해주세요 : ");
+//            String day = sc.nextLine();
+//            String date = year + "-" + month + "-" + day;
+//            SimpleDateFormat entDate = new SimpleDateFormat("yyyy-MM-dd");
 
             EmployeeDTO newEmp = new EmployeeDTO();
             newEmp.setEmpId(empId);
@@ -58,6 +68,7 @@ public class InsertEmp {
             newEmp.setJobCode(jobCode);
             newEmp.setSalLevel(salLevel);
             newEmp.setManagerId(managerId);
+//            newEmp.setEntDate(entDate);
 
             pstmt.setString(1, newEmp.getEmpId());
             pstmt.setString(2, newEmp.getEmpName());
@@ -68,6 +79,7 @@ public class InsertEmp {
             pstmt.setString(7, newEmp.getJobCode());
             pstmt.setString(8, newEmp.getSalLevel());
             pstmt.setString(9, newEmp.getManagerId());
+//            pstmt.setString(10, newEmp.getEntDate());
 
             result = pstmt.executeUpdate();
         } catch (IOException e) {
