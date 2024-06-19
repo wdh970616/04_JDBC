@@ -16,8 +16,8 @@ import static com.ohgiraffers.common.JDBCTemplate.close;
 import static com.ohgiraffers.common.JDBCTemplate.getConnection;
 
 public class AllEmp {
-    public static void main(String[] args) {
 
+    public void all() {
         Connection con = getConnection();
         Statement stmt = null;
         ResultSet rset = null;

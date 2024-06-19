@@ -26,8 +26,7 @@
         update employee
         set emp_name = ?,
         email = ?,
-        phone = ?,
-        ent_yn =?
+        phone = ?
         where emp_id = ?
     </entry>
 
