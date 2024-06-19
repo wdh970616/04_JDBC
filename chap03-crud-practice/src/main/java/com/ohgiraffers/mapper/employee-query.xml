@@ -16,8 +16,10 @@
         dept_code,
         job_code,
         sal_level,
-        manager_id)
-        values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        salary,
+        manager_id,
+        hire_date)
+        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     </entry>
 
     <entry key="updateEmp">
@@ -26,6 +28,13 @@
         email = ?,
         phone = ?,
         ent_yn =?
+        where emp_id = ?
+    </entry>
+
+    <entry key="retireEmp">
+        update employee
+        set emp_ent-date = ?,
+        set_yn = 'Y'
         where emp_id = ?
     </entry>
 
